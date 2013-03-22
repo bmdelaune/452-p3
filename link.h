@@ -1,6 +1,8 @@
 #ifndef LINK_H
 #define LINK_H
 
+#include <QLine>
+
 class Link
 {
 public:
@@ -11,12 +13,15 @@ public:
 
     double getTheta();
     void setTheta(double);
+    double getOrientation();
 
     Link* getNext();
     void setNext(Link*);
 
     Link* getPrevious();
     void setPrevious(Link*);
+
+    QLine getLine();
 
     ~Link();
 private:

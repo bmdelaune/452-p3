@@ -3,6 +3,7 @@
 #include "Link.h"
 #include <vector>
 #include <QDebug>
+#include <math.h>
 
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
@@ -12,7 +13,7 @@ Canvas::Canvas(QObject *parent) :
 void Canvas::initialize(){
     links.clear();
     rootLink = new Link();
-    rootLink->setTheta(90);
+    //rootLink->setTheta(90);
     links.push_back(rootLink);
     for(int i = 1; i < NUM_LINKS; i++){
         Link* tempLink = new Link();
@@ -29,10 +30,18 @@ void Canvas::initialize(){
 void Canvas::updateLinks(){
     blackBrush.setStyle(Qt::SolidPattern);
     blackPen.setStyle(Qt::SolidLine);
+    blackPen.setWidth(5);
     Link* currLink = rootLink;
     while(currLink->getNext() != NULL){
-        //this->addEllipse(0,0,300,300,blackPen, blackBrush);
-        this->addRect(0,0,100,100,blackPen,blackBrush);
+        int x, y;
+        if(currLink->getPrevious() == NULL){
+            x = 0;
+            y = 0;
+        }else{
+
+        }
+        //this->addEllipse(x,y,currLink->getLength()*sin(currLink->getTheta()),currLink->getLength()*cos(currLink->getTheta()),blackPen,blackBrush);
+        this->addLine(currLink->getLine(),blackPen);
         currLink = currLink->getNext();
     }
 }
