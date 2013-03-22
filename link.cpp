@@ -1,5 +1,5 @@
-#include "link.h"
+#include "Link.h"
 
-link::link()
+Link::Link()
 {
 }

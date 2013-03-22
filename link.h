@@ -1,10 +1,15 @@
 #ifndef LINK_H
 #define LINK_H
 
-class link
+class Link
 {
 public:
-    link();
+    Link();
+    drawLink(double);
+private:
+    double length;
+    double orientation;
+
 };
 
 #endif // LINK_H
