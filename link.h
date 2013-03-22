@@ -5,11 +5,24 @@ class Link
 {
 public:
     Link();
-    drawLink(double);
+    void drawLink(double);
+
+    double getLength();
+    void setLength(double);
+
+    double getTheta();
+    void setTheta(double);
+
+    Link* getNext();
+    void setNext(Link*);
+
+    Link* getPrevious();
+    void setPrevious(Link*);
 private:
     double length;
-    double orientation;
-
+    double theta;
+    Link* previous;
+    Link* next;
 };
 
 #endif // LINK_H

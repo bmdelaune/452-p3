@@ -14,9 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    Link.cpp
+    Link.cpp \
+    canvas.cpp
 
 HEADERS  += mainwindow.h \
-    Link.h
+    Link.h \
+    canvas.h \
+    Utils.h
 
 FORMS    += mainwindow.ui
