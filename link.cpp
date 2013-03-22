@@ -1,42 +1,46 @@
 #include "Link.h"
+#include <stdlib.h>
 
 Link::Link()
 {
     theta = 0;
+    next = NULL;
+    previous = NULL;
 }
 
-void Link::drawLink(double theta){
-
+Link::~Link(){
+    delete this;
 }
 
-double getLength(){
+double Link::getLength(){
     return length;
 }
 
-void setLength(double l){
+void Link::setLength(double l){
     length = l;
 }
 
-double getTheta(){
+double Link::getTheta(){
     return theta;
 }
 
-void setTheta(double t){
+void Link::setTheta(double t){
     theta = t;
 }
 
-Link* getNext(){
+Link* Link::getNext(){
     return next;
 }
 
-void setNext(Link* n){
+void Link::setNext(Link* n){
     next = n;
 }
 
-Link* getPrevious(){
+Link* Link::getPrevious(){
     return previous;
 }
 
-void setPrevious(Link* p){
+void Link::setPrevious(Link* p){
     previous = p;
 }
+

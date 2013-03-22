@@ -5,7 +5,6 @@ class Link
 {
 public:
     Link();
-    void drawLink(double);
 
     double getLength();
     void setLength(double);
@@ -18,6 +17,8 @@ public:
 
     Link* getPrevious();
     void setPrevious(Link*);
+
+    ~Link();
 private:
     double length;
     double theta;

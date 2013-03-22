@@ -2,23 +2,12 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtCore>
-#include <QtGui>
 #include <QGraphicsScene>
-#include <QGraphicsSceneMouseEvent>
-#include "ui_mainwindow.h"
+#include "canvas.h"
 
-class CustomScene : public QGraphicsScene
-{
-protected:
-    void mousePressEvent(QGraphicsSceneMouseEvent *event)
-    {
-        qDebug() << event->scenePos();
-    }
-};
 
 namespace Ui {
-    class mainWindow;
+    class MainWindow;
 }
 
 class mainWindow : public QMainWindow
@@ -30,8 +19,8 @@ public:
     ~mainWindow();
     
 private:
-    Ui::mainWindow *ui;
-    QGraphicsScene* scene;
+    Ui::MainWindow *ui;
+    Canvas* scene;
 };
 
 #endif // MAINWINDOW_H

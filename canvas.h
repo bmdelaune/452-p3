@@ -17,8 +17,8 @@ signals:
 public slots:
     
 private:
-    const QBrush blackBrush;
-    const QPen blackPen;
+    QBrush blackBrush;
+    QPen blackPen;
     Link* rootLink;
     std::vector<Link*> links;
 };
