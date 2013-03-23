@@ -1,12 +1,14 @@
 #include "Link.h"
 #include <stdlib.h>
 #include <math.h>
+#include "Utils.h"
 
 Link::Link()
 {
     theta = 0;
     next = NULL;
     previous = NULL;
+    line = NULL;
 }
 
 Link::~Link(){
@@ -55,10 +57,18 @@ void Link::setPrevious(Link* p){
 
 QLine Link::getLine(){
     if(previous == NULL){
-        return QLine(0,0,length*cos(theta),length*sin(theta));
+        return QLine(0,0,length*cos(theta*DEG_TO_RAD),length*sin(theta*DEG_TO_RAD));
     } else {
         QLine prevLine = previous->getLine();
-        double orientation = getOrientation();
+        double orientation = getOrientation()*DEG_TO_RAD;
         return QLine(prevLine.x2(),prevLine.y2(),prevLine.x2()+length*cos(orientation),prevLine.y2()+length*sin(orientation));
     }
+}
+
+void Link::setDrawnLine(QGraphicsLineItem* newLine){
+    line = newLine;
+}
+
+QGraphicsLineItem* Link::getDrawnLine(){
+    return line;
 }

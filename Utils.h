@@ -10,7 +10,7 @@
 
 /* Program Config */
 #define NUM_LINKS 3
-#define BASE_ANGLE 1
+#define BASE_ANGLE 3
 #define WIDTH 30
 #define HEIGHT 5*WIDTH
 #define PAINTER_DIAMETER 10

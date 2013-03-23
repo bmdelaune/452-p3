@@ -4,6 +4,9 @@
 #include <vector>
 #include <QDebug>
 #include <math.h>
+#include <QGraphicsLineItem>
+
+extern int axis_number;
 
 Canvas::Canvas(QObject *parent) :
     QGraphicsScene(parent)
@@ -13,7 +16,6 @@ Canvas::Canvas(QObject *parent) :
 void Canvas::initialize(){
     links.clear();
     rootLink = new Link();
-    //rootLink->setTheta(90);
     links.push_back(rootLink);
     for(int i = 1; i < NUM_LINKS; i++){
         Link* tempLink = new Link();
@@ -32,16 +34,27 @@ void Canvas::updateLinks(){
     blackPen.setStyle(Qt::SolidLine);
     blackPen.setWidth(5);
     Link* currLink = rootLink;
-    while(currLink->getNext() != NULL){
-        int x, y;
-        if(currLink->getPrevious() == NULL){
-            x = 0;
-            y = 0;
-        }else{
-
-        }
-        //this->addEllipse(x,y,currLink->getLength()*sin(currLink->getTheta()),currLink->getLength()*cos(currLink->getTheta()),blackPen,blackBrush);
-        this->addLine(currLink->getLine(),blackPen);
+    while(true) {
+        delete currLink->getDrawnLine();
+        QGraphicsLineItem* newLine = this->addLine(currLink->getLine(),blackPen);
+        currLink->setDrawnLine(newLine);
+        if(currLink->getNext() == NULL)
+            break;
         currLink = currLink->getNext();
     }
+}
+
+void Canvas::rotateCW()
+{
+    double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
+    qDebug() << "Clockwise. new theta: "<< newTheta <<endl;
+    links[axis_number-1]->setTheta(newTheta);
+    updateLinks();
+}
+
+void Canvas::rotateCCW()
+{
+    qDebug() << "counter-clockwise clicked" <<endl;
+    links[axis_number-1]->setTheta((links[axis_number-1]->getTheta()-BASE_ANGLE));
+    updateLinks();
 }

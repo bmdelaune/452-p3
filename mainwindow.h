@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QGraphicsScene>
+#include <QListWidgetItem>
 #include "canvas.h"
 
 
@@ -17,6 +18,9 @@ class mainWindow : public QMainWindow
 public:
     explicit mainWindow(QWidget *parent = 0);
     ~mainWindow();
+
+public slots:
+    void on_axisList_itemClicked(QListWidgetItem *item);
     
 private:
     Ui::MainWindow *ui;

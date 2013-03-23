@@ -2,6 +2,7 @@
 #define LINK_H
 
 #include <QLine>
+#include <QGraphicsLineItem>
 
 class Link
 {
@@ -23,12 +24,16 @@ public:
 
     QLine getLine();
 
+    void setDrawnLine(QGraphicsLineItem*);
+    QGraphicsLineItem* getDrawnLine();
+
     ~Link();
 private:
     double length;
     double theta;
     Link* previous;
     Link* next;
+    QGraphicsLineItem* line;
 };
 
 #endif // LINK_H
