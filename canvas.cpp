@@ -15,6 +15,7 @@ Canvas::Canvas(QObject *parent) :
 
 void Canvas::initialize(){
     links.clear();
+    x, y = 0;
     rootLink = new Link();
     links.push_back(rootLink);
     for(int i = 1; i < NUM_LINKS; i++){

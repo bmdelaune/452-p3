@@ -28,6 +28,10 @@ mainWindow::mainWindow(QWidget *parent) :
 
     connect(ui->cwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCW()));
     connect(ui->ccwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCCW()));
+    connect(ui->xPlus, SIGNAL(clicked()), scene, SLOT(addX()));
+    connect(ui->xMinus, SIGNAL(clicked()), scene, SLOT(subX()));
+    connect(ui->yPlus, SIGNAL(clicked()), scene, SLOT(addY()));
+    connect(ui->yMinus, SIGNAL(clicked()), scene, SLOT(subY()));
 }
 
 void mainWindow::on_axisList_itemClicked(QListWidgetItem *item)

@@ -4,7 +4,6 @@
 #include <QGraphicsScene>
 #include "Link.h"
 #include <vector>
-//#include
 
 class Canvas : public QGraphicsScene
 {
@@ -18,12 +17,18 @@ signals:
 public slots:
     void rotateCW();
     void rotateCCW();
+
+    void addX();
+    void subX();
+    void addY();
+    void subY();
 private:
     QBrush blackBrush;
     QPen blackPen;
     Link* rootLink;
     std::vector<Link*> links;
-    //std::vector<
+    double x;
+    double y;
 };
 
 #endif // CANVAS_H
