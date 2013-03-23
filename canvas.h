@@ -29,6 +29,12 @@ private:
     std::vector<Link*> links;
     double x;
     double y;
+    double newX;
+    double newY;
+
+    double calcX();
+    double calcY();
+    void worldMove();
 };
 
 #endif // CANVAS_H

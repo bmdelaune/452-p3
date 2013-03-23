@@ -43,6 +43,9 @@ void Canvas::updateLinks(){
             break;
         currLink = currLink->getNext();
     }
+
+    x = calcX();
+    y = calcY();
 }
 
 void Canvas::rotateCW()
@@ -58,4 +61,72 @@ void Canvas::rotateCCW()
     qDebug() << "counter-clockwise clicked" <<endl;
     links[axis_number-1]->setTheta((links[axis_number-1]->getTheta()-BASE_ANGLE));
     updateLinks();
+}
+
+void Canvas::addX()
+{
+    newX = x+XYMOVE;
+    newY = y;
+    worldMove();
+}
+
+void Canvas::subX()
+{
+    newX = x-XYMOVE;
+    newY = y;
+    worldMove();
+}
+
+void Canvas::addY()
+{
+    newX = x;
+    newY = y+XYMOVE;
+    worldMove();
+}
+
+void Canvas::subY()
+{
+    newX = x;
+    newY = y-XYMOVE;
+    worldMove();
+}
+
+double Canvas::calcX(){
+    double x0 = 0;
+    Link* currLink = rootLink;
+    while(true){
+        x0 += currLink->getLength()*cos(currLink->getOrientation()*DEG_TO_RAD);
+        if(currLink->getNext() == NULL)
+            break;
+        currLink = currLink->getNext();
+    }
+    return x0;
+}
+
+double Canvas::calcY(){
+    double y0 = 0;
+    Link* currLink = rootLink;
+    while(true){
+        y0 += currLink->getLength()*sin(currLink->getOrientation()*DEG_TO_RAD);
+        if(currLink->getNext() == NULL)
+            break;
+        currLink = currLink->getNext();
+    }
+    return y0;
+}
+
+double dabs(double k){
+    if(k > 0) return k;
+    else return -k;
+}
+
+void Canvas::worldMove(){
+    double sld = dabs(sqrt(pow(newX,2)+pow(newY,2)));
+    if(sld > 100){
+
+    } else if(sld > 50){
+
+    } else {
+
+    }
 }
