@@ -63,15 +63,14 @@ void Canvas::updateLinks(){
 void Canvas::rotateCW()
 {
     double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
-    qDebug() << "Clockwise. new theta: "<< newTheta <<endl;
     links[axis_number-1]->setTheta(newTheta);
     updateLinks();
 }
 
 void Canvas::rotateCCW()
 {
-    qDebug() << "counter-clockwise clicked" <<endl;
-    links[axis_number-1]->setTheta((links[axis_number-1]->getTheta()-BASE_ANGLE));
+    double newTheta = (links[axis_number-1]->getTheta()-BASE_ANGLE);
+    links[axis_number-1]->setTheta(newTheta);
     updateLinks();
 }
 
@@ -134,9 +133,15 @@ double dabs(double k){
 
 void Canvas::worldMove(){
     double sld = dabs(sqrt(pow(newX,2)+pow(newY,2)));
-    if(sld > 100){
+    double alpha, beta, psi, theta1, theta2 = 0;
+    double tempX, tempY = 0;
+    if(sld > 215){
+        alpha = atan2(newX,newY);
+        tempX = newX-links[2]->getLength()*cos(alpha);
+        tempY = newY-links[2]->getLength()*sin(alpha);
+        theta2 =
 
-    } else if(sld > 50){
+    } else if(sld > 125){
 
     } else {
 
