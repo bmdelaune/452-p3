@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <math.h>
 #include <QGraphicsLineItem>
+#include <QtWidgets/QColorDialog>
 
 extern int axis_number;
 
@@ -16,6 +17,15 @@ Canvas::Canvas(QObject *parent) :
 void Canvas::initialize(){
     links.clear();
     x, y = 0;
+
+    brushSize = 5;
+    paintToggle = false;
+    paintPen.setColor(Qt::red);
+    paintBrush.setColor(Qt::red);
+    paintBrush.setStyle(Qt::SolidPattern);
+    paintPen.setWidth(2);
+    paintPen.setStyle(Qt::SolidLine);
+
     rootLink = new Link();
     links.push_back(rootLink);
     for(int i = 1; i < NUM_LINKS; i++){
@@ -46,6 +56,8 @@ void Canvas::updateLinks(){
 
     x = calcX();
     y = calcY();
+
+    paint();
 }
 
 void Canvas::rotateCW()
@@ -129,4 +141,28 @@ void Canvas::worldMove(){
     } else {
 
     }
+}
+
+void Canvas::paintClicked() {
+    paintToggle = !paintToggle;
+    paint();
+}
+
+
+void Canvas::paint(){
+    Link* link = links[2];
+    QPoint endEffector(link->getLine().x2(), link->getLine().y2());
+    if (paintToggle)
+        this->addEllipse((int)endEffector.x()- brushSize/2,(int)endEffector.y()- brushSize/2,brushSize,brushSize,paintPen,paintBrush);
+}
+
+void Canvas::changeColor(){
+    QColor color = QColorDialog::getColor();
+
+    const QColor newColor(color.red(), color.green(), color.blue());
+
+    paintBrush.setColor(newColor);
+    paintPen.setColor(newColor);
+
+    paint();
 }

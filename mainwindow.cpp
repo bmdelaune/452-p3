@@ -32,6 +32,8 @@ mainWindow::mainWindow(QWidget *parent) :
     connect(ui->xMinus, SIGNAL(clicked()), scene, SLOT(subX()));
     connect(ui->yPlus, SIGNAL(clicked()), scene, SLOT(addY()));
     connect(ui->yMinus, SIGNAL(clicked()), scene, SLOT(subY()));
+    connect(ui->paintBtn, SIGNAL(clicked()), scene, SLOT(paintClicked()));
+    connect(ui->brushColor, SIGNAL(clicked()), scene, SLOT(changeColor()));
 }
 
 void mainWindow::on_axisList_itemClicked(QListWidgetItem *item)

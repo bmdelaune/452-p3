@@ -22,9 +22,16 @@ public slots:
     void subX();
     void addY();
     void subY();
+
+    void paintClicked();
+    void changeColor();
+
 private:
     QBrush blackBrush;
     QPen blackPen;
+    QBrush paintBrush;
+    QPen paintPen;
+
     Link* rootLink;
     std::vector<Link*> links;
     double x;
@@ -35,6 +42,11 @@ private:
     double calcX();
     double calcY();
     void worldMove();
+
+    int brushSize;
+    bool paintToggle;
+    void paint();
+
 };
 
 #endif // CANVAS_H
