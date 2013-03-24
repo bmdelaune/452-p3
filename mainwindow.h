@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QGraphicsScene>
 #include <QListWidgetItem>
+#include <QMouseEvent>
 #include "canvas.h"
 
 
@@ -20,6 +21,9 @@ public:
     ~mainWindow();
 
 public slots:
+    //void mousePressEvent(QMouseEvent * e);
+    //void mouseMoveEvent(QMouseEvent * e);
+    void dragMoveEvent(QDragMoveEvent *);
     void on_axisList_itemClicked(QListWidgetItem *item);
     
 private:

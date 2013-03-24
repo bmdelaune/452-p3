@@ -25,6 +25,10 @@ public slots:
 
     void paintClicked();
     void changeColor();
+    void worldMove();
+
+    void setX(double);
+    void setY(double);
 
 private:
     QBrush blackBrush;
@@ -41,7 +45,6 @@ private:
 
     double calcX();
     double calcY();
-    void worldMove();
 
     int brushSize;
     bool paintToggle;

@@ -57,7 +57,6 @@ void Canvas::updateLinks(){
 
     x = calcX();
     y = calcY();
-
     paint();
 }
 
@@ -188,4 +187,13 @@ void Canvas::changeColor(){
     paintPen.setColor(newColor);
 
     paint();
+}
+
+
+void Canvas::setX(double x0){
+    newX = x0;
+}
+
+void Canvas::setY(double y0){
+    newY = y0;
 }
