@@ -14,7 +14,7 @@
 #define WIDTH 30
 #define HEIGHT 5*WIDTH
 #define PAINTER_DIAMETER 10
-#define XYMOVE 1
+#define XYMOVE 3
 
 
 #endif // UTILS_H

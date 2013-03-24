@@ -15,15 +15,15 @@ mainWindow::mainWindow(QWidget *parent) :
 
     QRectF rect = ui->graphicsView->rect();
 
-    rect.setY((-rect.width()-10)/2);
-    rect.setWidth(ui->graphicsView->height()-5);
-    rect.setHeight(ui->graphicsView->width()-5);
+    rect.setX(-(rect.width()-10)/2);
+    rect.setWidth(ui->graphicsView->width()-5);
+    rect.setHeight(ui->graphicsView->height()-5);
     scene->setSceneRect(rect);
 
     ui->graphicsView->setScene(scene);
     scene->initialize();
 
-    ui->graphicsView->rotate(270);
+    ui->graphicsView->rotate(180);
 
 
     connect(ui->cwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCW()));

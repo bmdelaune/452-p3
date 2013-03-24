@@ -37,6 +37,7 @@ void Canvas::initialize(){
     links[0]->setLength(150);
     links[1]->setLength(100);
     links[2]->setLength(75);
+    links[0]->setTheta(90);
     updateLinks();
 }
 
@@ -62,14 +63,14 @@ void Canvas::updateLinks(){
 
 void Canvas::rotateCW()
 {
-    double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
+    double newTheta = (links[axis_number-1]->getTheta()-BASE_ANGLE);
     links[axis_number-1]->setTheta(newTheta);
     updateLinks();
 }
 
 void Canvas::rotateCCW()
 {
-    double newTheta = (links[axis_number-1]->getTheta()-BASE_ANGLE);
+    double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
     links[axis_number-1]->setTheta(newTheta);
     updateLinks();
 }
@@ -133,19 +134,36 @@ double dabs(double k){
 
 void Canvas::worldMove(){
     double sld = dabs(sqrt(pow(newX,2)+pow(newY,2)));
-    double alpha, beta, psi, theta1, theta2 = 0;
+    if(sld > 325) return;
+    double alpha, beta, psi, theta1, theta2, theta3 = 0;
     double tempX, tempY = 0;
-    if(sld > 215){
-        alpha = atan2(newX,newY);
-        tempX = newX-links[2]->getLength()*cos(alpha);
-        tempY = newY-links[2]->getLength()*sin(alpha);
-        theta2 =
-
+    double l1 = links[0]->getLength();
+    double l2 = links[1]->getLength();
+    if(sld > 305){
+        alpha = atan2(newY,newX)*RAD_TO_DEG;
     } else if(sld > 125){
-
+        alpha = (sld-125)-90-(90-atan2(newY,newX)*RAD_TO_DEG);
     } else {
-
+        alpha = -atan2(newY,newX)*RAD_TO_DEG;
     }
+    tempX = newX-links[2]->getLength()*cos(alpha*DEG_TO_RAD);
+    tempY = newY-links[2]->getLength()*sin(alpha*DEG_TO_RAD);
+    theta2 = acos((pow(tempX,2)+pow(tempY,2)-pow(l1,2)-pow(l2,2))/(2*l1*l2))*RAD_TO_DEG;
+    psi = acos((pow(tempX,2)+pow(tempY,2)+pow(l1,2)-pow(l2,2))/(2*l1*sqrt(pow(tempX,2)+pow(tempY,2))))*RAD_TO_DEG;
+    beta = atan2(tempY,tempX)*RAD_TO_DEG;
+    if(theta2 <= 0){
+        theta1 = beta + psi;
+    } else {
+        theta1 = beta - psi;
+    }
+    theta3 = alpha-theta1-theta2;
+    if(isnan(theta1)) return;
+    if(isnan(theta2)) return;
+    if(isnan(theta3)) return;
+    links[0]->setTheta(theta1);
+    links[1]->setTheta(theta2);
+    links[2]->setTheta(theta3);
+    updateLinks();
 }
 
 void Canvas::paintClicked() {
