@@ -37,6 +37,7 @@ mainWindow::mainWindow(QWidget *parent) :
     connect(ui->yMinus, SIGNAL(clicked()), scene, SLOT(subY()));
     connect(ui->paintBtn, SIGNAL(clicked()), scene, SLOT(paintClicked()));
     connect(ui->brushColor, SIGNAL(clicked()), scene, SLOT(changeColor()));
+    connect(ui->brushSlider, SIGNAL(valueChanged(int)), scene, SLOT(changeSize(int)));
 }
 
 /*void mainWindow::mousePressEvent(QMouseEvent *event)

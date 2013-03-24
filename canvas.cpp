@@ -26,6 +26,10 @@ void Canvas::initialize(){
     paintPen.setWidth(2);
     paintPen.setStyle(Qt::SolidLine);
 
+    blackBrush.setStyle(Qt::SolidPattern);
+    blackPen.setStyle(Qt::SolidLine);
+    blackPen.setWidth(5);
+
     rootLink = new Link();
     links.push_back(rootLink);
     for(int i = 1; i < NUM_LINKS; i++){
@@ -42,9 +46,6 @@ void Canvas::initialize(){
 }
 
 void Canvas::updateLinks(){
-    blackBrush.setStyle(Qt::SolidPattern);
-    blackPen.setStyle(Qt::SolidLine);
-    blackPen.setWidth(5);
     Link* currLink = rootLink;
     while(true) {
         delete currLink->getDrawnLine();
@@ -62,28 +63,30 @@ void Canvas::updateLinks(){
 
 void Canvas::rotateCW()
 {
-    double newTheta = (links[axis_number-1]->getTheta()-BASE_ANGLE);
+    double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
     links[axis_number-1]->setTheta(newTheta);
     updateLinks();
 }
 
 void Canvas::rotateCCW()
 {
-    double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
+    double newTheta = (links[axis_number-1]->getTheta()-BASE_ANGLE);
     links[axis_number-1]->setTheta(newTheta);
     updateLinks();
 }
 
 void Canvas::addX()
 {
-    newX = x+XYMOVE;
+    //newX = x+XYMOVE;
+    newX = x-XYMOVE;
     newY = y;
     worldMove();
 }
 
 void Canvas::subX()
 {
-    newX = x-XYMOVE;
+    //newX = x-XYMOVE;
+    newX = x+XYMOVE;
     newY = y;
     worldMove();
 }
@@ -102,6 +105,9 @@ void Canvas::subY()
     worldMove();
 }
 
+/* This function traverses through the robot's links and keeps a running total of the
+ * links' projections onto the x-axis to calculate the end effector x-coordinate.
+ */
 double Canvas::calcX(){
     double x0 = 0;
     Link* currLink = rootLink;
@@ -170,7 +176,6 @@ void Canvas::paintClicked() {
     paint();
 }
 
-
 void Canvas::paint(){
     Link* link = links[2];
     QPoint endEffector(link->getLine().x2(), link->getLine().y2());
@@ -180,13 +185,14 @@ void Canvas::paint(){
 
 void Canvas::changeColor(){
     QColor color = QColorDialog::getColor();
-
     const QColor newColor(color.red(), color.green(), color.blue());
-
     paintBrush.setColor(newColor);
     paintPen.setColor(newColor);
-
     paint();
+}
+
+void Canvas::changeSize(int newSize){
+    brushSize = newSize;
 }
 
 
