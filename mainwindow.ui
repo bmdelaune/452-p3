@@ -155,7 +155,7 @@ Clockwise</string>
     <widget class="QPushButton" name="xPlus">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>70</x>
        <y>10</y>
        <width>41</width>
        <height>31</height>
@@ -168,7 +168,7 @@ Clockwise</string>
     <widget class="QPushButton" name="xMinus">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>20</x>
        <y>10</y>
        <width>41</width>
        <height>31</height>
@@ -181,7 +181,7 @@ Clockwise</string>
     <widget class="QPushButton" name="yPlus">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>70</x>
        <y>60</y>
        <width>41</width>
        <height>31</height>
@@ -194,7 +194,7 @@ Clockwise</string>
     <widget class="QPushButton" name="yMinus">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>20</x>
        <y>60</y>
        <width>41</width>
        <height>31</height>

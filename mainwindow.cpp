@@ -30,7 +30,6 @@ mainWindow::mainWindow(QWidget *parent) :
 
     ui->graphicsView->rotate(180);
 
-
     connect(ui->cwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCW()));
     connect(ui->ccwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCCW()));
     connect(ui->xPlus, SIGNAL(clicked()), scene, SLOT(addX()));
