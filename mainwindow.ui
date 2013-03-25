@@ -291,6 +291,55 @@ Clockwise</string>
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="netStatus">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>490</y>
+      <width>301</width>
+      <height>21</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>NETWORK STATUS: Disconnected</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="connectClient">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>510</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect</string>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="ipEdit">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>520</y>
+      <width>113</width>
+      <height>20</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="modeBtn">
+    <property name="geometry">
+     <rect>
+      <x>250</x>
+      <y>510</y>
+      <width>75</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Server Mode</string>
+    </property>
+   </widget>
    <zorder>controlPanelFrm</zorder>
    <zorder>robotAreaFrm</zorder>
    <zorder>frame</zorder>
@@ -298,6 +347,10 @@ Clockwise</string>
    <zorder>brushSlider</zorder>
    <zorder>label_2</zorder>
    <zorder>colorFrame</zorder>
+   <zorder>netStatus</zorder>
+   <zorder>connectClient</zorder>
+   <zorder>ipEdit</zorder>
+   <zorder>modeBtn</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -305,7 +358,7 @@ Clockwise</string>
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>22</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuAUTOBOTS_Project_2">

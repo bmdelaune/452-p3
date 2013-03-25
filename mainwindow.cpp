@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <QString>
 #include <QPointF>
-#include "canvas.h"
+#include "mainwindow.h"
 
 extern int axis_number;
 
@@ -14,6 +14,8 @@ mainWindow::mainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     scene = new Canvas(this);
+    c = new Connector(this);
+    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn);
 
     QRectF rect = ui->graphicsView->rect();
 
@@ -37,6 +39,38 @@ mainWindow::mainWindow(QWidget *parent) :
     connect(ui->yMinus, SIGNAL(clicked()), scene, SLOT(subY()));
     connect(ui->paintBtn, SIGNAL(clicked()), scene, SLOT(paintClicked()));
     connect(ui->brushColor, SIGNAL(clicked()), scene, SLOT(changeColor()));
+    connect(ui->connectClient, SIGNAL(clicked()), c, SLOT(cconnect()));
+    connect(ui->modeBtn, SIGNAL(clicked()), c, SLOT(changeMode()));
+    connect(ui->modeBtn, SIGNAL(clicked()), this, SLOT(disableButtons()));
+}
+
+void mainWindow::disableButtons() {
+    if (!c->client)
+    {
+        ui->axisList->setEnabled(false);
+        ui->cwiseBtn->setEnabled(false);
+        ui->ccwiseBtn->setEnabled(false);
+        ui->xPlus->setEnabled(false);
+        ui->xMinus->setEnabled(false);
+        ui->yPlus->setEnabled(false);
+        ui->yMinus->setEnabled(false);
+        ui->paintBtn->setEnabled(false);
+        ui->brushSlider->setEnabled(false);
+        ui->brushColor->setEnabled(false);
+    }
+    else
+    {
+        ui->axisList->setEnabled(true);
+        ui->cwiseBtn->setEnabled(true);
+        ui->ccwiseBtn->setEnabled(true);
+        ui->xPlus->setEnabled(true);
+        ui->xMinus->setEnabled(true);
+        ui->yPlus->setEnabled(true);
+        ui->yMinus->setEnabled(true);
+        ui->paintBtn->setEnabled(true);
+        ui->brushSlider->setEnabled(true);
+        ui->brushColor->setEnabled(true);
+    }
 }
 
 /*void mainWindow::mousePressEvent(QMouseEvent *event)
