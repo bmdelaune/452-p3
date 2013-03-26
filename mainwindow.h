@@ -21,9 +21,6 @@ public:
     ~mainWindow();
 
 public slots:
-    //void mousePressEvent(QMouseEvent * e);
-    //void mouseMoveEvent(QMouseEvent * e);
-    void dragMoveEvent(QDragMoveEvent *);
     void on_axisList_itemClicked(QListWidgetItem *item);
     void disableButtons();
     
