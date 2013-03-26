@@ -150,6 +150,7 @@ void Canvas::worldMove(){
         alpha = (sld-125)-90-(90-atan2(newY,newX)*RAD_TO_DEG);
     } else {
         alpha = -atan2(newY,newX)*RAD_TO_DEG;
+        alpha = 180-alpha;
     }
     tempX = newX-links[2]->getLength()*cos(alpha*DEG_TO_RAD);
     tempY = newY-links[2]->getLength()*sin(alpha*DEG_TO_RAD);
