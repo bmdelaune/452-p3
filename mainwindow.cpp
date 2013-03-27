@@ -44,6 +44,10 @@ mainWindow::mainWindow(QWidget *parent) :
     connect(ui->connectClient, SIGNAL(clicked()), c, SLOT(cconnect()));
     connect(ui->modeBtn, SIGNAL(clicked()), c, SLOT(changeMode()));
     connect(ui->modeBtn, SIGNAL(clicked()), this, SLOT(disableButtons()));
+    connect(c, SIGNAL(addY()), scene, SLOT(addY()));
+    connect(c, SIGNAL(subY()), scene, SLOT(subY()));
+    connect(c, SIGNAL(addX()), scene, SLOT(addX()));
+    connect(c, SIGNAL(subX()), scene, SLOT(subX()));
     connect(c, SIGNAL(enableButtons()), this, SLOT(disableButtons()));
     connect(scene, SIGNAL(sendMsg(int,int)), c, SLOT(sendCommand(int, int)));
 }

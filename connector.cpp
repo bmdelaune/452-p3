@@ -19,13 +19,8 @@ Connector::Connector(QWidget *parent)
     :  QObject(parent) {
     connected = false;
     client = true;
-    connect(this, SIGNAL(addY()), canvas, SLOT(addY()));
-    connect(this, SIGNAL(subY()), canvas, SLOT(subY()));
-    connect(this, SIGNAL(addX()), canvas, SLOT(addX()));
-    connect(this, SIGNAL(subX()), canvas, SLOT(subX()));
     connect(&clientSock, SIGNAL(connected()), this, SLOT(ready()));
     connect(&server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
-    connect(serverSock, SIGNAL(readyRead()), this, SLOT(readCommands()));
 }
 
 Connector::~Connector() {}
@@ -92,6 +87,7 @@ void Connector::changeMode() {
 void Connector::acceptConnection() {
     serverSock = server.nextPendingConnection();
     status->setText("NETWORK STATUS: Connected as server.");
+    connect(serverSock, SIGNAL(readyRead()), this, SLOT(readCommands()));
 }
 
 void Connector::sendCommand(int command, int axis) {
@@ -118,13 +114,13 @@ void Connector::readCommands() {
             axis_number = buf[1];
             canvas->rotateCCW();
         case ADDY:
-            canvas->addY();
+            emit addY();
         case SUBY:
-            canvas->subY();
+            emit subY();
         case ADDX:
-            canvas->addX();
+            emit addX();
         case SUBX:
-            canvas->subX();
+            emit subX();
         default:
             qDebug() << "RECEIVE ERROR:" << buf[0];
         }
