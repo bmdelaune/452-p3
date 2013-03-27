@@ -16,7 +16,8 @@ mainWindow::mainWindow(QWidget *parent) :
 
     scene = new Canvas(this);
     c = new Connector(this);
-    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn);
+    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn, scene);
+    disableButtons();
 
     QRectF rect = ui->graphicsView->rect();
 
@@ -46,7 +47,7 @@ mainWindow::mainWindow(QWidget *parent) :
 }
 
 void mainWindow::disableButtons() {
-    if (!c->client)
+    if (!c->client || !c->connected)
     {
         ui->axisList->setEnabled(false);
         ui->cwiseBtn->setEnabled(false);
