@@ -30,6 +30,10 @@ void Connector::setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c) {
     ipBox = le;
     modeBtn = btn;
     canvas = c;
+    connect(this, SIGNAL(addY()), canvas, SLOT(addY()));
+    connect(this, SIGNAL(subY()), canvas, SLOT(subY()));
+    connect(this, SIGNAL(addX()), canvas, SLOT(addX()));
+    connect(this, SIGNAL(subX()), canvas, SLOT(subX()));
 }
 
 void Connector::cconnect() {
@@ -43,10 +47,9 @@ void Connector::cconnect() {
     QHostAddress host(ip);
     status->setText("NETWORK STATUS: Connecting to " + ip + "...");
     clientSock.connectToHost(host, PORT);
-
-
 }
 void Connector::ready() {
+    // client connection is ready
     if (clientSock.state() != 3)
     {
         qDebug() << "CONNECTION STATUS " << clientSock.state();
@@ -91,6 +94,10 @@ void Connector::acceptConnection() {
 }
 
 void Connector::sendCommand(int command, int axis) {
+    if (!client)
+    {
+        qDebug() << "SEND - NOT CLIENT";
+    }
     if (!connected)
     {
         qDebug() << "SEND ERROR: NOT CONNECTED";
@@ -101,6 +108,11 @@ void Connector::sendCommand(int command, int axis) {
 }
 
 void Connector::readCommands() {
+    if (client)
+    {
+        qDebug() << "READ - NOT SERVER";
+        return;
+    }
     char buf[2] = {0};
     while (true)
     {
