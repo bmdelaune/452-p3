@@ -94,10 +94,9 @@ void Connector::acceptConnection() {
 }
 
 void Connector::sendCommand(int command, int axis) {
+    // if server, ignore
     if (!client)
-    {
-        qDebug() << "SEND - NOT CLIENT";
-    }
+        return;
     if (!connected)
     {
         qDebug() << "SEND ERROR: NOT CONNECTED";
