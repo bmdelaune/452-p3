@@ -123,19 +123,26 @@ void Connector::readCommands() {
         case CW:
             axis_number = axis;
             canvas->rotateCW();
+            break;
         case CCW:
             axis_number = axis;
             canvas->rotateCCW();
+            break;
         case ADDY:
             emit addY();
+            break;
         case SUBY:
             emit subY();
+            break;
         case ADDX:
             emit addX();
+            break;
         case SUBX:
             emit subX();
+            break;
         default:
             qDebug() << "RECEIVE ERROR:" << command;
+            break;
     }
 }
 
