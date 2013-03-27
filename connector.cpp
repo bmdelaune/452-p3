@@ -151,6 +151,8 @@ void Connector::readCommands() {
 
 void Connector::cdisconnect() {
     server.close();
-    serverSock->close();
-    clientSock.close();
+    if (serverSock->state() == 0)
+        serverSock->close();
+    if (clientSock.state() == 0)
+        clientSock.close();
 }
