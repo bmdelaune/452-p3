@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Optimus Paint v 3.0</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="QFrame" name="robotAreaFrm">
@@ -152,38 +152,12 @@ Clockwise</string>
     <property name="frameShadow">
      <enum>QFrame::Raised</enum>
     </property>
-    <widget class="QPushButton" name="xPlus">
-     <property name="geometry">
-      <rect>
-       <x>70</x>
-       <y>10</y>
-       <width>41</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>+X</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="xMinus">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>10</y>
-       <width>41</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>-X</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="yPlus">
      <property name="geometry">
       <rect>
-       <x>70</x>
-       <y>60</y>
-       <width>41</width>
+       <x>50</x>
+       <y>10</y>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
@@ -194,14 +168,40 @@ Clockwise</string>
     <widget class="QPushButton" name="yMinus">
      <property name="geometry">
       <rect>
-       <x>20</x>
+       <x>50</x>
        <y>60</y>
-       <width>41</width>
+       <width>31</width>
        <height>31</height>
       </rect>
      </property>
      <property name="text">
       <string>-Y</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="xPlus">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>30</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>+X</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="xMinus">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>30</y>
+       <width>31</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>-X</string>
      </property>
     </widget>
    </widget>
@@ -218,85 +218,12 @@ Clockwise</string>
      <string>Paint!</string>
     </property>
    </widget>
-   <widget class="QSlider" name="brushSlider">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>440</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="minimum">
-     <number>5</number>
-    </property>
-    <property name="maximum">
-     <number>50</number>
-    </property>
-    <property name="singleStep">
-     <number>5</number>
-    </property>
-    <property name="orientation">
-     <enum>Qt::Horizontal</enum>
-    </property>
-    <property name="tickPosition">
-     <enum>QSlider::TicksBelow</enum>
-    </property>
-    <property name="tickInterval">
-     <number>5</number>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>640</x>
-      <y>410</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Brush Size</string>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignCenter</set>
-    </property>
-   </widget>
-   <widget class="QFrame" name="colorFrame">
-    <property name="geometry">
-     <rect>
-      <x>630</x>
-      <y>470</y>
-      <width>131</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::StyledPanel</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Raised</enum>
-    </property>
-    <widget class="QPushButton" name="brushColor">
-     <property name="geometry">
-      <rect>
-       <x>12</x>
-       <y>10</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Brush Color</string>
-     </property>
-    </widget>
-   </widget>
    <widget class="QLabel" name="netStatus">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>490</y>
-      <width>301</width>
+      <x>10</x>
+      <y>480</y>
+      <width>421</width>
       <height>21</height>
      </rect>
     </property>
@@ -307,9 +234,9 @@ Clockwise</string>
    <widget class="QPushButton" name="connectClient">
     <property name="geometry">
      <rect>
-      <x>150</x>
-      <y>510</y>
-      <width>75</width>
+      <x>250</x>
+      <y>500</y>
+      <width>71</width>
       <height>31</height>
      </rect>
     </property>
@@ -320,19 +247,19 @@ Clockwise</string>
    <widget class="QLineEdit" name="ipEdit">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>520</y>
-      <width>113</width>
-      <height>20</height>
+      <x>130</x>
+      <y>500</y>
+      <width>111</width>
+      <height>31</height>
      </rect>
     </property>
    </widget>
    <widget class="QPushButton" name="modeBtn">
     <property name="geometry">
      <rect>
-      <x>250</x>
-      <y>510</y>
-      <width>75</width>
+      <x>10</x>
+      <y>500</y>
+      <width>111</width>
       <height>31</height>
      </rect>
     </property>
@@ -340,17 +267,28 @@ Clockwise</string>
      <string>Server Mode</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="delayBtn">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>500</y>
+      <width>111</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Delay Mode</string>
+    </property>
+   </widget>
    <zorder>controlPanelFrm</zorder>
    <zorder>robotAreaFrm</zorder>
    <zorder>frame</zorder>
    <zorder>paintBtn</zorder>
-   <zorder>brushSlider</zorder>
-   <zorder>label_2</zorder>
-   <zorder>colorFrame</zorder>
    <zorder>netStatus</zorder>
    <zorder>connectClient</zorder>
    <zorder>ipEdit</zorder>
    <zorder>modeBtn</zorder>
+   <zorder>delayBtn</zorder>
   </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
@@ -361,12 +299,6 @@ Clockwise</string>
      <height>21</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuAUTOBOTS_Project_2">
-    <property name="title">
-     <string>Optimus Paint - v 2.0</string>
-    </property>
-   </widget>
-   <addaction name="menuAUTOBOTS_Project_2"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

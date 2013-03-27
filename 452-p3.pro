@@ -26,3 +26,5 @@ HEADERS  += mainwindow.h \
     network.h
 
 FORMS    += mainwindow.ui
+
+CONFIG += qtestlib

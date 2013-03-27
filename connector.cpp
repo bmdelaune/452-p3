@@ -19,16 +19,18 @@ Connector::Connector(QWidget *parent)
     :  QObject(parent) {
     connected = false;
     client = true;
+    delay = false;
     connect(&clientSock, SIGNAL(connected()), this, SLOT(ready()));
     connect(&server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
 }
 
 Connector::~Connector() {}
 
-void Connector::setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c) {
+void Connector::setup(QLabel *ql, QLineEdit *le, QPushButton *mBtn, QPushButton *dBtn, Canvas *c) {
     status = ql;
     ipBox = le;
-    modeBtn = btn;
+    modeBtn = mBtn;
+    delayBtn = dBtn;
     canvas = c;
     connect(this, SIGNAL(addY()), canvas, SLOT(addY()));
     connect(this, SIGNAL(subY()), canvas, SLOT(subY()));
@@ -76,6 +78,8 @@ void Connector::changeMode() {
     {
         modeBtn->setText("Client Mode");
         status->setText("NETWORK STATUS: Awaiting connection...");
+        //ipBox->setEnabled(false);
+        //connBtn->setEnabled(false);
         server.listen(QHostAddress::Any, PORT);
     }
     // client mode - wait for connect order
@@ -83,7 +87,13 @@ void Connector::changeMode() {
     {
         modeBtn->setText("Server Mode");
         status->setText("NETWORK STATUS: Disconnected.");
+        //ipBox->setEnabled(true);
+        //connBtn->setEnabled(true);
     }
+}
+
+void Connector::changeDelay() {
+    delay = !delay;
 }
 
 void Connector::acceptConnection() {
@@ -116,6 +126,8 @@ void Connector::readCommands() {
     char buf[2] = {0};
 
         serverSock->read(buf, serverSock->bytesAvailable());
+        if (delay)
+            QTest::qSleep(2000);
         int command = int(buf[0]);
         int axis = int(buf[1]);
         switch(command)
@@ -153,12 +165,14 @@ void Connector::cdisconnect() {
     if (!client && (server.isListening() || serverSock->state() != 0))
     {
         server.close();
-        serverSock->close();
+        //serverSock->close();
         connected = false;
+        status->setText("NETWORK STATUS: Disconnected.");
     }
     else if (client && connected)
     {
-        client.close();
+        clientSock.close();
         connected = false;
+        status->setText("NETWORK STATUS: Disconnected.");
     }
 }

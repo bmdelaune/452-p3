@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
+#include <QTest>
 #include "canvas.h"
 
 #define CW 1
@@ -25,10 +26,10 @@ class Connector : public QObject {
     Q_OBJECT
 public:
     bool client; // true if client, false if server
-    bool connected;
+    bool connected, delay;
     Connector(QWidget *parent = 0);
     ~Connector();
-    void setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c);
+    void setup(QLabel *ql, QLineEdit *le, QPushButton *mBtn, QPushButton *dBtn, Canvas *c);
 signals:
     void enableButtons();
     void addY();
@@ -41,6 +42,7 @@ public slots:
     void ready();
     void acceptConnection();
     void changeMode();
+    void changeDelay();
     void sendCommand(int command, int axis);
     void readCommands();
     void cdisconnect();
@@ -51,7 +53,7 @@ private:
     QTcpSocket clientSock;
     QLabel *status;
     QLineEdit *ipBox;
-    QPushButton *modeBtn;
+    QPushButton *modeBtn, *delayBtn;
     Canvas *canvas;
 };
 

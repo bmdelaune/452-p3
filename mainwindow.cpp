@@ -16,7 +16,7 @@ mainWindow::mainWindow(QWidget *parent) :
 
     scene = new Canvas(this);
     c = new Connector(this);
-    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn, scene);
+    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn, ui->connectClient, scene);
     disableButtons();
 
     QRectF rect = ui->graphicsView->rect();
@@ -39,13 +39,14 @@ mainWindow::mainWindow(QWidget *parent) :
     connect(ui->yPlus, SIGNAL(clicked()), scene, SLOT(addY()));
     connect(ui->yMinus, SIGNAL(clicked()), scene, SLOT(subY()));
     connect(ui->paintBtn, SIGNAL(clicked()), scene, SLOT(paintClicked()));
-    connect(ui->brushColor, SIGNAL(clicked()), scene, SLOT(changeColor()));
-    connect(ui->brushSlider, SIGNAL(valueChanged(int)), scene, SLOT(changeSize(int)));
+    //connect(ui->brushColor, SIGNAL(clicked()), scene, SLOT(changeColor()));
+    //connect(ui->brushSlider, SIGNAL(valueChanged(int)), scene, SLOT(changeSize(int)));
     connect(ui->connectClient, SIGNAL(clicked()), c, SLOT(cconnect()));
     connect(ui->modeBtn, SIGNAL(clicked()), c, SLOT(changeMode()));
     connect(ui->modeBtn, SIGNAL(clicked()), this, SLOT(disableButtons()));
     connect(c, SIGNAL(enableButtons()), this, SLOT(disableButtons()));
     connect(scene, SIGNAL(sendMsg(int,int)), c, SLOT(sendCommand(int, int)));
+    connect(ui->delayBtn, SIGNAL(clicked()), c, SLOT(changeDelay()));
 }
 
 void mainWindow::disableButtons() {
@@ -59,8 +60,8 @@ void mainWindow::disableButtons() {
         ui->yPlus->setEnabled(false);
         ui->yMinus->setEnabled(false);
         ui->paintBtn->setEnabled(false);
-        ui->brushSlider->setEnabled(false);
-        ui->brushColor->setEnabled(false);
+       //ui->brushSlider->setEnabled(false);
+        //ui->brushColor->setEnabled(false);
     }
     else
     {
@@ -72,8 +73,8 @@ void mainWindow::disableButtons() {
         ui->yPlus->setEnabled(true);
         ui->yMinus->setEnabled(true);
         ui->paintBtn->setEnabled(true);
-        ui->brushSlider->setEnabled(true);
-        ui->brushColor->setEnabled(true);
+        //ui->brushSlider->setEnabled(true);
+        //ui->brushColor->setEnabled(true);
     }
 }
 
