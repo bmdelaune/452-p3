@@ -16,6 +16,7 @@
 #define SUBY 4
 #define ADDX 5
 #define SUBX 6
+#define PAINT 7
 #define PORT 9009
 
 void getMyIP();
@@ -34,6 +35,7 @@ signals:
     void subY();
     void addX();
     void subX();
+    void paint();
 public slots:
     void cconnect();
     void ready();

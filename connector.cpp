@@ -34,6 +34,7 @@ void Connector::setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c) {
     connect(this, SIGNAL(subY()), canvas, SLOT(subY()));
     connect(this, SIGNAL(addX()), canvas, SLOT(addX()));
     connect(this, SIGNAL(subX()), canvas, SLOT(subX()));
+    connect(this, SIGNAL(paint()), canvas, SLOT(paintClicked()));
 }
 
 void Connector::cconnect() {
@@ -68,12 +69,11 @@ void Connector::ready() {
 
 void Connector::changeMode() {
     client = !client;
+    cdisconnect();
     // server mode - start server
     if (!client)
     {
         modeBtn->setText("Client Mode");
-        if (connected)
-            clientSock.close();
         status->setText("NETWORK STATUS: Awaiting connection...");
         server.listen(QHostAddress::Any, PORT);
     }
@@ -140,10 +140,17 @@ void Connector::readCommands() {
         case SUBX:
             emit subX();
             break;
+        case PAINT:
+            emit paint();
+            break;
         default:
             qDebug() << "RECEIVE ERROR:" << command;
             break;
     }
 }
 
-void Connector::cdisconnect() {}
+void Connector::cdisconnect() {
+    server.close();
+    serverSock->close();
+    clientSock.close();
+}
