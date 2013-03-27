@@ -13,10 +13,8 @@ public:
     void initialize();
     void updateLinks();
 signals:
-    
+    void sendMsg(int command, int axis);
 public slots:
-
-
     void rotateCW();
     void rotateCCW();
 

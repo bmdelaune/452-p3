@@ -28,6 +28,8 @@ public:
     Connector(QWidget *parent = 0);
     ~Connector();
     void setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c);
+signals:
+    void readyRead();
 public slots:
     void cconnect();
     void changeMode();

@@ -33,23 +33,18 @@ mainWindow::mainWindow(QWidget *parent) :
     ui->graphicsView->rotate(180);
 
     connect(ui->cwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCW()));
-    connect(ui->cwiseBtn, SIGNAL(clicked()), c, SLOT(sendCommand(CW, axis_number)));
     connect(ui->ccwiseBtn, SIGNAL(clicked()), scene, SLOT(rotateCCW()));
-    connect(ui->ccwiseBtn, SIGNAL(clicked()), c, SLOT(sendCommand(CCW, axis_number)));
     connect(ui->xPlus, SIGNAL(clicked()), scene, SLOT(addX()));
-    connect(ui->xPlus, SIGNAL(clicked()), c, SLOT(sendCommand(ADDX, 0)));
     connect(ui->xMinus, SIGNAL(clicked()), scene, SLOT(subX()));
-    connect(ui->xMinus, SIGNAL(clicked()), c, SLOT(sendCommand(SUBX, 0)));
     connect(ui->yPlus, SIGNAL(clicked()), scene, SLOT(addY()));
-    connect(ui->yPlus, SIGNAL(clicked()), c, SLOT(sendCommand(ADDY, 0)));
     connect(ui->yMinus, SIGNAL(clicked()), scene, SLOT(subY()));
-    connect(ui->yMinus, SIGNAL(clicked()), c, SLOT(sendCommand(SUBY, 0)));
     connect(ui->paintBtn, SIGNAL(clicked()), scene, SLOT(paintClicked()));
     connect(ui->brushColor, SIGNAL(clicked()), scene, SLOT(changeColor()));
     connect(ui->brushSlider, SIGNAL(valueChanged(int)), scene, SLOT(changeSize(int)));
     connect(ui->connectClient, SIGNAL(clicked()), c, SLOT(cconnect()));
     connect(ui->modeBtn, SIGNAL(clicked()), c, SLOT(changeMode()));
     connect(ui->modeBtn, SIGNAL(clicked()), this, SLOT(disableButtons()));
+    connect(scene, SIGNAL(sendMsg(int,int)), c, SLOT(sendCommand(int, int)));
 }
 
 void mainWindow::disableButtons() {

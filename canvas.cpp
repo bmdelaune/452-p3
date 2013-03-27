@@ -1,6 +1,7 @@
 #include "canvas.h"
 #include "Utils.h"
 #include "Link.h"
+#include "network.h"
 #include <vector>
 #include <QDebug>
 #include <math.h>
@@ -65,6 +66,7 @@ void Canvas::rotateCW()
 {
     double newTheta = (links[axis_number-1]->getTheta()+BASE_ANGLE);
     links[axis_number-1]->setTheta(newTheta);
+    emit sendMsg(CW, axis_number);
     updateLinks();
 }
 
@@ -72,6 +74,7 @@ void Canvas::rotateCCW()
 {
     double newTheta = (links[axis_number-1]->getTheta()-BASE_ANGLE);
     links[axis_number-1]->setTheta(newTheta);
+    emit sendMsg(CCW, axis_number);
     updateLinks();
 }
 
@@ -80,6 +83,7 @@ void Canvas::addX()
     //newX = x+XYMOVE;
     newX = x-XYMOVE;
     newY = y;
+    emit sendMsg(ADDX, 0);
     worldMove();
 }
 
@@ -88,6 +92,7 @@ void Canvas::subX()
     //newX = x-XYMOVE;
     newX = x+XYMOVE;
     newY = y;
+    emit sendMsg(SUBX, 0);
     worldMove();
 }
 
@@ -95,6 +100,7 @@ void Canvas::addY()
 {
     newX = x;
     newY = y+XYMOVE;
+    emit sendMsg(ADDY, 0);
     worldMove();
 }
 
@@ -102,6 +108,7 @@ void Canvas::subY()
 {
     newX = x;
     newY = y-XYMOVE;
+    emit sendMsg(SUBY, 0);
     worldMove();
 }
 
