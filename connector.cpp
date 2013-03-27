@@ -104,6 +104,7 @@ void Connector::sendCommand(int command, int axis) {
         return;
     }
     char buf[2] = {command, axis};
+    qDebug() << "SENDING: " << (int) buf[0] << ", " << (int) buf[1];
     clientSock.write(buf);
 }
 
@@ -114,16 +115,14 @@ void Connector::readCommands() {
         return;
     }
     char buf[2] = {0};
-    while (true)
-    {
         serverSock->read(buf, serverSock->bytesAvailable());
-        switch(buf[0])
+        switch((int)buf[0])
         {
         case CW:
-            axis_number = buf[1];
+            axis_number = (int) buf[1];
             canvas->rotateCW();
         case CCW:
-            axis_number = buf[1];
+            axis_number = (int) buf[1];
             canvas->rotateCCW();
         case ADDY:
             emit addY();
@@ -134,8 +133,7 @@ void Connector::readCommands() {
         case SUBX:
             emit subX();
         default:
-            qDebug() << "RECEIVE ERROR:" << buf[0];
-        }
+            qDebug() << "RECEIVE ERROR:" << (int) buf[0];
     }
 }
 
