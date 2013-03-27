@@ -32,7 +32,7 @@ void Connector::setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c) {
 
 void Connector::cconnect() {
     // client setup
-    QString ip = ipBox->text();
+    ip = ipBox->text();
     if (QString::compare(ip, "") == 0)
     {
         status->setText("NETWORK STATUS: No IP specified. Disconnected.");
@@ -41,8 +41,13 @@ void Connector::cconnect() {
     QHostAddress host(ip);
     status->setText("NETWORK STATUS: Connecting to " + ip + "...");
     clientSock.connectToHost(host, PORT);
+    connect(&clientSock, SIGNAL(connected()), this, SLOT(ready()));
+
+}
+void Connector::ready() {
     if (clientSock.state() != 3)
     {
+        qDebug() << "CONNECTION STATUS " << clientSock.state();
         qDebug() << "CONNECTION ERROR " << clientSock.error();
         status->setText("NETWORK STATUS: Error connecting to " + ip + ". Disconnected.");
         connected = false;
@@ -51,6 +56,7 @@ void Connector::cconnect() {
     {
         status->setText("NETWORK STATUS: Connected to " + ip);
         connected = true;
+        emit enableButtons();
     }
 }
 
@@ -64,8 +70,7 @@ void Connector::changeMode() {
             clientSock.close();
         status->setText("NETWORK STATUS: Awaiting connection...");
         server.listen(QHostAddress::Any, PORT);
-        serverSock = server.nextPendingConnection();
-        connect(this, SIGNAL(readyRead()), this, SLOT(readCommands()));
+        connect(&server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
     }
     // client mode - stop server, wait for connect order
     else
@@ -75,6 +80,11 @@ void Connector::changeMode() {
         if (server.isListening() || serverSock->state() != 0)
             server.close();
     }
+}
+
+void Connector::acceptConnection() {
+    serverSock = server.nextPendingConnection();
+    connect(serverSock, SIGNAL(readyRead()), this, SLOT(readCommands()));
 }
 
 void Connector::sendCommand(int command, int axis) {

@@ -29,14 +29,17 @@ public:
     ~Connector();
     void setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c);
 signals:
-    void readyRead();
+    void enableButtons();
 public slots:
     void cconnect();
+    void ready();
+    void acceptConnection();
     void changeMode();
     void sendCommand(int command, int axis);
     void readCommands();
     void cdisconnect();
 private:
+    QString ip;
     QTcpServer server;
     QTcpSocket *serverSock;
     QTcpSocket clientSock;
