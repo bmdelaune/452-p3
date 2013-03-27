@@ -48,6 +48,7 @@ void Connector::cconnect() {
     status->setText("NETWORK STATUS: Connecting to " + ip + "...");
     clientSock.connectToHost(host, PORT);
 }
+
 void Connector::ready() {
     // client connection is ready
     if (clientSock.state() != 3)
@@ -75,7 +76,6 @@ void Connector::changeMode() {
             clientSock.close();
         status->setText("NETWORK STATUS: Awaiting connection...");
         server.listen(QHostAddress::Any, PORT);
-
     }
     // client mode - stop server, wait for connect order
     else
@@ -115,14 +115,16 @@ void Connector::readCommands() {
         return;
     }
     char buf[2] = {0};
+    int command = int(buf[0]);
+    int axis = int(buf[1]);
         serverSock->read(buf, serverSock->bytesAvailable());
-        switch((int)buf[0])
+        switch(command)
         {
         case CW:
-            axis_number = (int) buf[1];
+            axis_number = axis;
             canvas->rotateCW();
         case CCW:
-            axis_number = (int) buf[1];
+            axis_number = axis;
             canvas->rotateCCW();
         case ADDY:
             emit addY();
@@ -133,7 +135,7 @@ void Connector::readCommands() {
         case SUBX:
             emit subX();
         default:
-            qDebug() << "RECEIVE ERROR:" << (int) buf[0];
+            qDebug() << "RECEIVE ERROR:" << command;
     }
 }
 
