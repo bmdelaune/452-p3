@@ -16,7 +16,7 @@ mainWindow::mainWindow(QWidget *parent) :
 
     scene = new Canvas(this);
     c = new Connector(this);
-    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn, ui->connectClient, scene);
+    c->setup(ui->netStatus, ui->ipEdit, ui->modeBtn, ui->delayBtn, scene);
     disableButtons();
 
     QRectF rect = ui->graphicsView->rect();

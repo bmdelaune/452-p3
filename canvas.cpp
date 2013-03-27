@@ -19,7 +19,7 @@ void Canvas::initialize(){
     links.clear();
     x, y = 0;
 
-    brushSize = 5;
+    brushSize = 15;
     paintToggle = false;
     paintPen.setColor(Qt::red);
     paintBrush.setColor(Qt::red);

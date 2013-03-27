@@ -94,6 +94,10 @@ void Connector::changeMode() {
 
 void Connector::changeDelay() {
     delay = !delay;
+    if (delay)
+        delayBtn->setText("Synchronized Mode");
+    else
+        delayBtn->setText("Delay Mode");
 }
 
 void Connector::acceptConnection() {
