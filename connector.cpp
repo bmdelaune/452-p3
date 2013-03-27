@@ -68,29 +68,28 @@ void Connector::ready() {
 }
 
 void Connector::changeMode() {
+    // disconnect other socket, swap mode
+    cdisconnect();
     client = !client;
     // server mode - start server
     if (!client)
     {
         modeBtn->setText("Client Mode");
-        if (connected)
-            clientSock.close();
         status->setText("NETWORK STATUS: Awaiting connection...");
         server.listen(QHostAddress::Any, PORT);
     }
-    // client mode - stop server, wait for connect order
+    // client mode - wait for connect order
     else
     {
         modeBtn->setText("Server Mode");
         status->setText("NETWORK STATUS: Disconnected.");
-        if (server.isListening() || serverSock->state() != 0)
-            server.close();
     }
 }
 
 void Connector::acceptConnection() {
     serverSock = server.nextPendingConnection();
     status->setText("NETWORK STATUS: Connected as server.");
+    connected = true;
     connect(serverSock, SIGNAL(readyRead()), this, SLOT(readCommands()));
 }
 
@@ -151,7 +150,15 @@ void Connector::readCommands() {
 }
 
 void Connector::cdisconnect() {
-    server.close();
-    serverSock->close();
-    client.close();
+    if (!client && (server.isListening() || serverSock->state() != 0))
+    {
+        server.close();
+        serverSock->close();
+        connected = false;
+    }
+    else if (client && connected)
+    {
+        client.close();
+        connected = false;
+    }
 }
