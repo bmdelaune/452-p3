@@ -115,9 +115,10 @@ void Connector::readCommands() {
         return;
     }
     char buf[2] = {0};
-    int command = int(buf[0]);
-    int axis = int(buf[1]);
+
         serverSock->read(buf, serverSock->bytesAvailable());
+        int command = int(buf[0]);
+        int axis = int(buf[1]);
         switch(command)
         {
         case CW:
