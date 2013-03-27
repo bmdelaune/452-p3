@@ -30,6 +30,10 @@ public:
     void setup(QLabel *ql, QLineEdit *le, QPushButton *btn, Canvas *c);
 signals:
     void enableButtons();
+    void addY();
+    void subY();
+    void addX();
+    void subX();
 public slots:
     void cconnect();
     void ready();

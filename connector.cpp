@@ -19,6 +19,13 @@ Connector::Connector(QWidget *parent)
     :  QObject(parent) {
     connected = false;
     client = true;
+    connect(this, SIGNAL(addY()), canvas, SLOT(addY()));
+    connect(this, SIGNAL(subY()), canvas, SLOT(subY()));
+    connect(this, SIGNAL(addX()), canvas, SLOT(addX()));
+    connect(this, SIGNAL(subX()), canvas, SLOT(subX()));
+    connect(&clientSock, SIGNAL(connected()), this, SLOT(ready()));
+    connect(&server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
+    connect(serverSock, SIGNAL(readyRead()), this, SLOT(readCommands()));
 }
 
 Connector::~Connector() {}
@@ -41,7 +48,7 @@ void Connector::cconnect() {
     QHostAddress host(ip);
     status->setText("NETWORK STATUS: Connecting to " + ip + "...");
     clientSock.connectToHost(host, PORT);
-    connect(&clientSock, SIGNAL(connected()), this, SLOT(ready()));
+
 
 }
 void Connector::ready() {
@@ -70,7 +77,7 @@ void Connector::changeMode() {
             clientSock.close();
         status->setText("NETWORK STATUS: Awaiting connection...");
         server.listen(QHostAddress::Any, PORT);
-        connect(&server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
+
     }
     // client mode - stop server, wait for connect order
     else
@@ -84,7 +91,7 @@ void Connector::changeMode() {
 
 void Connector::acceptConnection() {
     serverSock = server.nextPendingConnection();
-    connect(serverSock, SIGNAL(readyRead()), this, SLOT(readCommands()));
+    status->setText("NETWORK STATUS: Connected as server.");
 }
 
 void Connector::sendCommand(int command, int axis) {
@@ -111,13 +118,13 @@ void Connector::readCommands() {
             axis_number = buf[1];
             canvas->rotateCCW();
         case ADDY:
-            connect(this, SIGNAL(addY()), canvas, SLOT(addY()));
+            canvas->addY();
         case SUBY:
-            connect(this, SIGNAL(subY()), canvas, SLOT(subY()));
+            canvas->subY();
         case ADDX:
-            connect(this, SIGNAL(addX()), canvas, SLOT(addX()));
+            canvas->addX();
         case SUBX:
-            connect(this, SIGNAL(subX()), canvas, SLOT(subX()));
+            canvas->subX();
         default:
             qDebug() << "RECEIVE ERROR:" << buf[0];
         }
