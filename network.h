@@ -31,8 +31,8 @@ public:
 public slots:
     void cconnect();
     void changeMode();
-    void sendCommand(int command);
-    void readCommand();
+    void sendCommand(int command, int axis);
+    void readCommands();
     void cdisconnect();
 private:
     QTcpServer server;
