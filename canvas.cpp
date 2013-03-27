@@ -182,6 +182,7 @@ void Canvas::worldMove(){
 void Canvas::paintClicked() {
     paintToggle = !paintToggle;
     paint();
+    sendMsg(PAINT, 0);
 }
 
 void Canvas::paint(){

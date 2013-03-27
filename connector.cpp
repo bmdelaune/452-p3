@@ -69,11 +69,12 @@ void Connector::ready() {
 
 void Connector::changeMode() {
     client = !client;
-    cdisconnect();
     // server mode - start server
     if (!client)
     {
         modeBtn->setText("Client Mode");
+        if (connected)
+            clientSock.close();
         status->setText("NETWORK STATUS: Awaiting connection...");
         server.listen(QHostAddress::Any, PORT);
     }
@@ -150,11 +151,7 @@ void Connector::readCommands() {
 }
 
 void Connector::cdisconnect() {
-    if (serverSock->state() == 0)
-    {
-        serverSock->close();
-        server.close();
-    }
-    if (clientSock.state() == 0)
-        clientSock.close();
+    server.close();
+    serverSock->close();
+    client.close();
 }
