@@ -38,7 +38,7 @@ signals:
     void addX();
     void subX();
     void paint();
-    void hasCmd();
+    void hasCmd(int size);
 public slots:
     void cconnect();
     void ready();
@@ -47,7 +47,7 @@ public slots:
     void changeDelay();
     void sendCommand(int command, int axis);
     void readCommands();
-    void execute();
+    void execute(int size);
     void cdisconnect();
 private:
     QString ip;

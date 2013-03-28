@@ -134,42 +134,44 @@ void Connector::readCommands() {
     int command = int(buf[0]);
     int axis = int(buf[1]);
     cmdQ.enqueue(qMakePair(command, axis));
-    emit hasCmd();
-
+    emit hasCmd(cmdQ.size());
 }
 
-void Connector::execute() {
+void Connector::execute(int size) {
     if (delay)
-        QTest::qSleep(2000);
-    QPair<int, int> next = cmdQ.dequeue();
-    switch(next.first)
+        QTest::qWait(2000);
+    for (int i = 0; i < size; i++)
     {
-    case CW:
-        axis_number = next.second;
-        canvas->rotateCW();
-        break;
-    case CCW:
-        axis_number = next.second;
-        canvas->rotateCCW();
-        break;
-    case ADDY:
-        emit addY();
-        break;
-    case SUBY:
-        emit subY();
-        break;
-    case ADDX:
-        emit addX();
-        break;
-    case SUBX:
-        emit subX();
-        break;
-    case PAINT:
-        emit paint();
-        break;
-    default:
-        qDebug() << "RECEIVE ERROR:" << next.first;
-        break;
+        QPair<int, int> next = cmdQ.dequeue();
+        switch(next.first)
+        {
+        case CW:
+            axis_number = next.second;
+            canvas->rotateCW();
+            break;
+        case CCW:
+            axis_number = next.second;
+            canvas->rotateCCW();
+            break;
+        case ADDY:
+            emit addY();
+            break;
+        case SUBY:
+            emit subY();
+            break;
+        case ADDX:
+            emit addX();
+            break;
+        case SUBX:
+            emit subX();
+            break;
+        case PAINT:
+            emit paint();
+            break;
+        default:
+            qDebug() << "RECEIVE ERROR:" << next.first;
+            break;
+        }
     }
 }
 
