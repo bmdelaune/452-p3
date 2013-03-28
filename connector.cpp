@@ -133,13 +133,9 @@ void Connector::readCommands() {
     serverSock->read(buf, serverSock->bytesAvailable());
     int command = int(buf[0]);
     int axis = int(buf[1]);
-<<<<<<< HEAD
-    if (delay)
-=======
 
     if (delay)
     {
->>>>>>> wheeeeee
         cmdQ.enqueue(qMakePair(command, axis));
         QTimer::singleShot(2000, this, SLOT(timesUp()));
     }
