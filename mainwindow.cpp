@@ -65,6 +65,10 @@ void mainWindow::disableButtons() {
     {
         ui->ipEdit->setEnabled(false);
         ui->connectClient->setEnabled(false);
+        ui->paintBtn->setEnabled(false);
+        ui->delayBtn->setEnabled(true);
+       //ui->brushSlider->setEnabled(false);
+        //ui->brushColor->setEnabled(false);
     }
     else
     {
@@ -76,6 +80,9 @@ void mainWindow::disableButtons() {
         ui->yPlus->setEnabled(true);
         ui->yMinus->setEnabled(true);
         ui->paintBtn->setEnabled(true);
+        ui->delayBtn->setEnabled(false);
+        //ui->brushSlider->setEnabled(true);
+        //ui->brushColor->setEnabled(true);
     }
 }
 

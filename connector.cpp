@@ -99,6 +99,7 @@ void Connector::changeDelay() {
         delayBtn->setText("Synchronized Mode");
     else
         delayBtn->setText("Delay Mode");
+    QTimer::singleShot(2000, this, SLOT(timesUp()));
 }
 
 void Connector::acceptConnection() {
@@ -189,4 +190,9 @@ void Connector::cdisconnect() {
         connected = false;
         status->setText("NETWORK STATUS: Disconnected.");
     }
+}
+
+void Connector::timesUp()
+{
+    //do something
 }

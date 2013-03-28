@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QObject>
 #include <QPushButton>
+#include <QTimer>
 #include <QTest>
 #include <QQueue>
 #include "canvas.h"
@@ -49,6 +50,7 @@ public slots:
     void readCommands();
     void execute(int size);
     void cdisconnect();
+    void timesUp();
 private:
     QString ip;
     QTcpServer server;
