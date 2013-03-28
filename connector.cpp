@@ -42,6 +42,7 @@ void Connector::setup(QLabel *ql, QLineEdit *le, QPushButton *mBtn, QPushButton 
 
 void Connector::cconnect() {
     // client setup
+    clientSock.abort();
     ip = ipBox->text();
     if (QString::compare(ip, "") == 0)
     {
@@ -129,13 +130,19 @@ void Connector::readCommands() {
         return;
     }
     char buf[2] = {0};
-
     serverSock->read(buf, serverSock->bytesAvailable());
     int command = int(buf[0]);
     int axis = int(buf[1]);
+<<<<<<< HEAD
     if (delay)
+=======
+
+    if (delay)
+    {
+>>>>>>> wheeeeee
         cmdQ.enqueue(qMakePair(command, axis));
         QTimer::singleShot(2000, this, SLOT(timesUp()));
+    }
     else
     {
         switch(command)
