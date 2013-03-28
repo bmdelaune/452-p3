@@ -99,7 +99,6 @@ void Connector::changeDelay() {
         delayBtn->setText("Synchronized Mode");
     else
         delayBtn->setText("Delay Mode");
-    QTimer::singleShot(2000, this, SLOT(timesUp()));
 }
 
 void Connector::acceptConnection() {
@@ -134,17 +133,12 @@ void Connector::readCommands() {
     serverSock->read(buf, serverSock->bytesAvailable());
     int command = int(buf[0]);
     int axis = int(buf[1]);
-    cmdQ.enqueue(qMakePair(command, axis));
-    emit hasCmd(cmdQ.size());
-}
-
-void Connector::execute(int size) {
     if (delay)
-        QTest::qWait(2000);
-    for (int i = 0; i < size; i++)
+        cmdQ.enqueue(qMakePair(command, axis));
+        QTimer::singleShot(2000, this, SLOT(timesUp()));
+    else
     {
-        QPair<int, int> next = cmdQ.dequeue();
-        switch(next.first)
+        switch(command)
         {
         case CW:
             axis_number = next.second;
@@ -194,5 +188,34 @@ void Connector::cdisconnect() {
 
 void Connector::timesUp()
 {
-    //do something
+    QPair<int, int> next = cmdQ.dequeue();
+    switch(next.first)
+    {
+    case CW:
+        axis_number = next.second;
+        canvas->rotateCW();
+        break;
+    case CCW:
+        axis_number = next.second;
+        canvas->rotateCCW();
+        break;
+    case ADDY:
+        emit addY();
+        break;
+    case SUBY:
+        emit subY();
+        break;
+    case ADDX:
+        emit addX();
+        break;
+    case SUBX:
+        emit subX();
+        break;
+    case PAINT:
+        emit paint();
+        break;
+    default:
+        qDebug() << "RECEIVE ERROR:" << next.first;
+        break;
+}
 }
