@@ -59,9 +59,12 @@ void mainWindow::disableButtons() {
         ui->xMinus->setEnabled(false);
         ui->yPlus->setEnabled(false);
         ui->yMinus->setEnabled(false);
-        ui->paintBtn->setEnabled(false);
-       //ui->brushSlider->setEnabled(false);
-        //ui->brushColor->setEnabled(false);
+        ui->paintBtn->setEnabled(false);    
+    }
+    else if (!c->client && c->connected)
+    {
+        ui->ipEdit->setEnabled(false);
+        ui->connectClient->setEnabled(false);
     }
     else
     {
@@ -73,8 +76,6 @@ void mainWindow::disableButtons() {
         ui->yPlus->setEnabled(true);
         ui->yMinus->setEnabled(true);
         ui->paintBtn->setEnabled(true);
-        //ui->brushSlider->setEnabled(true);
-        //ui->brushColor->setEnabled(true);
     }
 }
 

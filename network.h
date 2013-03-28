@@ -9,6 +9,7 @@
 #include <QObject>
 #include <QPushButton>
 #include <QTest>
+#include <QQueue>
 #include "canvas.h"
 
 #define CW 1
@@ -37,6 +38,7 @@ signals:
     void addX();
     void subX();
     void paint();
+    void hasCmd();
 public slots:
     void cconnect();
     void ready();
@@ -45,6 +47,7 @@ public slots:
     void changeDelay();
     void sendCommand(int command, int axis);
     void readCommands();
+    void execute();
     void cdisconnect();
 private:
     QString ip;
@@ -55,6 +58,7 @@ private:
     QLineEdit *ipBox;
     QPushButton *modeBtn, *delayBtn;
     Canvas *canvas;
+    QQueue<QPair<int, int> > cmdQ;
 };
 
 #endif // NETWORK_H

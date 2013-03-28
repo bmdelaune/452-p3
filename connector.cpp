@@ -22,6 +22,7 @@ Connector::Connector(QWidget *parent)
     delay = false;
     connect(&clientSock, SIGNAL(connected()), this, SLOT(ready()));
     connect(&server, SIGNAL(newConnection()), this, SLOT(acceptConnection()));
+    connect(this, SIGNAL(hasCmd()), this, SLOT(execute()));
 }
 
 Connector::~Connector() {}
@@ -129,39 +130,46 @@ void Connector::readCommands() {
     }
     char buf[2] = {0};
 
-        serverSock->read(buf, serverSock->bytesAvailable());
-        if (delay)
-            QTest::qSleep(2000);
-        int command = int(buf[0]);
-        int axis = int(buf[1]);
-        switch(command)
-        {
-        case CW:
-            axis_number = axis;
-            canvas->rotateCW();
-            break;
-        case CCW:
-            axis_number = axis;
-            canvas->rotateCCW();
-            break;
-        case ADDY:
-            emit addY();
-            break;
-        case SUBY:
-            emit subY();
-            break;
-        case ADDX:
-            emit addX();
-            break;
-        case SUBX:
-            emit subX();
-            break;
-        case PAINT:
-            emit paint();
-            break;
-        default:
-            qDebug() << "RECEIVE ERROR:" << command;
-            break;
+    serverSock->read(buf, serverSock->bytesAvailable());
+    int command = int(buf[0]);
+    int axis = int(buf[1]);
+    cmdQ.enqueue(qMakePair(command, axis));
+    emit hasCmd();
+
+}
+
+void Connector::execute() {
+    if (delay)
+        QTest::sleep(2000);
+    QPair next = cmdQ.pop_front();
+    switch(next.first)
+    {
+    case CW:
+        axis_number = next.second;
+        canvas->rotateCW();
+        break;
+    case CCW:
+        axis_number = next.second;
+        canvas->rotateCCW();
+        break;
+    case ADDY:
+        emit addY();
+        break;
+    case SUBY:
+        emit subY();
+        break;
+    case ADDX:
+        emit addX();
+        break;
+    case SUBX:
+        emit subX();
+        break;
+    case PAINT:
+        emit paint();
+        break;
+    default:
+        qDebug() << "RECEIVE ERROR:" << next.first;
+        break;
     }
 }
 
