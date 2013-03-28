@@ -140,8 +140,8 @@ void Connector::readCommands() {
 
 void Connector::execute() {
     if (delay)
-        QTest::sleep(2000);
-    QPair next = cmdQ.pop_front();
+        QTest::qSleep(2000);
+    QPair<int, int> next = cmdQ.dequeue();
     switch(next.first)
     {
     case CW:
